@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Processing | ESSU-GradDocuFlow Staff</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../staff-css/staff-document-process.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (STAFF VERSION) ===== -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Staff Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar staff">
+                        <span>AR</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Admin Registrar</h4>
+                        <p>Staff Account</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="staff-dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="staff-pending-requests.html" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Requests</span>
+                </a>
+                <a href="staff-all-requests.html" class="nav-item">
+                    <i class="fas fa-list-alt"></i>
+                    <span>All Requests</span>
+                </a>
+                <a href="staff-student-registry.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Student Registry</span>
+                </a>
+                <a href="staff-document-process.html" class="nav-item active">
+                    <i class="fas fa-cogs"></i>
+                    <span>Document Processing</span>
+                </a>
+                <a href="staff-report.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="staff-document-templates.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Templates</span>
+                </a>
+                <a href="staff-notification.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="staff-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/admin-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Document Processing</h1>
+                    <p class="subtitle">Prepare, verify, and process approved document requests.</p>
+                </div>
+                <div class="header-right">
+                    <span class="processing-count">
+                        <i class="fas fa-hourglass-half"></i>
+                        <strong id="processingCount">0</strong> Processing
+                    </span>
+                </div>
+            </header>
+
+            <!-- Processing Table -->
+            <section class="table-section">
+                <div class="table-container">
+                    <table class="processing-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Document Type</th>
+                                <th>Date Approved</th>
+                                <th>Assigned Staff</th>
+                                <th>Clearance Status</th>
+                                <th>Requirements</th>
+                                <th>Processing Time</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="processingTableBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Document Processing Modal -->
+    <div id="processingModal" class="modal">
+        <div class="modal-content xlarge">
+            <div class="modal-header">
+                <div>
+                    <h2 id="processingTitle">Document Processing</h2>
+                    <p id="processingSubtitle" class="modal-subtitle"></p>
+                </div>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Student Information -->
+                <div class="processing-section">
+                    <h3><i class="fas fa-user"></i> Student Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Full Name</label>
+                            <p id="procStudentName"></p>
+                        </div>
+                        <div class="info-item">
+                            <label>Student ID</label>
+                            <p id="procStudentId"></p>
+                        </div>
+                        <div class="info-item">
+                            <label>Program</label>
+                            <p id="procProgram"></p>
+                        </div>
+                        <div class="info-item">
+                            <label>Year Graduated</label>
+                            <p id="procYear"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Requirements -->
+                <div class="processing-section">
+                    <h3><i class="fas fa-paperclip"></i> Uploaded Requirements</h3>
+                    <div class="requirements-grid" id="requirementsGrid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Clearance Verification -->
+                <div class="processing-section">
+                    <h3><i class="fas fa-check-circle"></i> Clearance Verification</h3>
+                    <div class="clearance-grid">
+                        <div class="clearance-item">
+                            <label>Library Clearance</label>
+                            <div class="clearance-controls">
+                                <select id="clearanceLibrary" class="clearance-select">
+                                    <option value="">Select Status</option>
+                                    <option value="cleared">Cleared</option>
+                                    <option value="not-cleared">Not Cleared</option>
+                                    <option value="pending">Pending Verification</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearance-item">
+                            <label>Accounting Clearance</label>
+                            <div class="clearance-controls">
+                                <select id="clearanceAccounting" class="clearance-select">
+                                    <option value="">Select Status</option>
+                                    <option value="cleared">Cleared</option>
+                                    <option value="with-balance">With Balance</option>
+                                    <option value="pending">Pending Verification</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearance-item">
+                            <label>Department Clearance</label>
+                            <div class="clearance-controls">
+                                <select id="clearanceDepartment" class="clearance-select">
+                                    <option value="">Select Status</option>
+                                    <option value="cleared">Cleared</option>
+                                    <option value="not-cleared">Not Cleared</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearance-item">
+                            <label>Registrar Clearance</label>
+                            <div class="clearance-controls">
+                                <select id="clearanceRegistrar" class="clearance-select">
+                                    <option value="">Select Status</option>
+                                    <option value="cleared">Cleared</option>
+                                    <option value="pending">Pending Review</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Preparation Checklist -->
+                <div class="processing-section">
+                    <h3><i class="fas fa-tasks"></i> Document Preparation Checklist</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="check1" class="checklist-input">
+                            <label for="check1"><i class="fas fa-check"></i> Record Verified</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="check2" class="checklist-input">
+                            <label for="check2"><i class="fas fa-check"></i> Grades Validated</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="check3" class="checklist-input">
+                            <label for="check3"><i class="fas fa-check"></i> Document Generated</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="check4" class="checklist-input">
+                            <label for="check4"><i class="fas fa-check"></i> Signed by Registrar</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="check5" class="checklist-input">
+                            <label for="check5"><i class="fas fa-check"></i> Dry Seal Applied</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Notes -->
+                <div class="processing-section">
+                    <h3><i class="fas fa-sticky-note"></i> Processing Notes</h3>
+                    <textarea id="processingNotes" class="notes-input"
+                        placeholder="Add any processing notes or remarks..."></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancel" id="modalCancel">Close</button>
+                <div class="modal-actions">
+                    <button class="btn-view-record" id="viewRecordBtn"><i class="fas fa-eye"></i> View Student
+                        Record</button>
+                    <button class="btn-print" id="printBtn"><i class="fas fa-print"></i> Print Document</button>
+                    <button class="btn-hold" id="holdBtn"><i class="fas fa-pause-circle"></i> Put On Hold</button>
+                    <button class="btn-ready" id="readyBtn"><i class="fas fa-check-circle"></i> Ready for
+                        Release</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">   
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 id="confirmTitle">Confirm Action</h2>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="confirmCancel">Cancel</button>
+                <button class="btn-confirm" id="confirmAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../staff_js/staff-document-process.js"></script>
+</body>
+
+</html>

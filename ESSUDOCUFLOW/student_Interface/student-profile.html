@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | ESSU-GradDocuFlow</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../student-css/student-profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (UNCHANGED) ===== -->
+        <aside class="sidebar student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Student Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span>JD</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Juan Dela Cruz</h4>
+                        <p>2022-00123</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="student-my-documents.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                </a>
+                <a href="student-request.html" class="nav-item">
+                    <i class="fas fa-file-import"></i>
+                    <span>Document Request</span>
+                </a>
+                <a href="student-notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="student-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <div class="sidebar-footer">
+                    <a href="../loginform/student-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>My Profile</h1>
+                    <p class="subtitle">Manage your profile information and account settings</p>
+                </div>
+            </header>
+
+            <!-- Profile Header Card -->
+            <section class="profile-header">
+                <div class="profile-avatar-section">
+                    <div class="profile-picture">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <button class="btn-change-photo" id="changePhotoBtn">
+                        <i class="fas fa-camera"></i> Change Photo
+                    </button>
+                </div>
+
+                <div class="profile-header-info">
+                    <h2 class="profile-name">Juan Dela Cruz</h2>
+                    <p class="profile-course">BS Information Technology</p>
+                    <div class="profile-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-id-card"></i> Student ID: 2022-00123
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-check-circle graduating"></i> Status: Graduating
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personal Information Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                    <button class="btn-edit" id="editPersonalBtn">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Full Name</label>
+                        <p class="info-value">Juan Dela Cruz</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Date of Birth</label>
+                        <p class="info-value">January 15, 2001</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Gender</label>
+                        <p class="info-value">Male</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Civil Status</label>
+                        <p class="info-value">Single</p>
+                    </div>
+                    <div class="info-item two-column-span">
+                        <label class="info-label">Nationality</label>
+                        <p class="info-value">Filipino</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-phone"></i> Contact Information</h3>
+                    <button class="btn-edit" id="editContactBtn">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Email Address</label>
+                        <p class="info-value">juan.delacruz@student.essu.edu.ph</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Mobile Number</label>
+                        <p class="info-value">+63 917-234-5678</p>
+                    </div>
+                    <div class="info-item two-column-span">
+                        <label class="info-label">Home Address</label>
+                        <p class="info-value">123 Main Street, Guiuan, Eastern Samar 6800, Philippines</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Emergency Contact Name</label>
+                        <p class="info-value">Maria Dela Cruz (Mother)</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Emergency Contact Number</label>
+                        <p class="info-value">+63 917-234-5679</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Academic Information Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-graduation-cap"></i> Academic Information</h3>
+                    <button class="btn-edit" disabled title="Academic information cannot be edited">
+                        <i class="fas fa-lock"></i> Locked
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Student ID</label>
+                        <p class="info-value">2022-00123</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Campus</label>
+                        <p class="info-value">ESSU Guiuan</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Program / Course</label>
+                        <p class="info-value">BS Information Technology</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Year Graduated</label>
+                        <p class="info-value">2026</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Academic Standing</label>
+                        <p class="info-value">
+                            <span class="badge-standing excellent">Excellent</span>
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Enrollment Status</label>
+                        <p class="info-value">
+                            <span class="badge-status active">Active</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Document Activity Summary -->
+            <section class="activity-summary">
+                <h3>Document Activity Summary</h3>
+                <div class="activity-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon requests">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Total Requests</span>
+                            <span class="activity-value">12</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon approved">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Approved Documents</span>
+                            <span class="activity-value">8</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Pending Requests</span>
+                            <span class="activity-value">3</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon login">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Last Login</span>
+                            <span class="activity-value">Today, 2:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Settings Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-cog"></i> Account Settings</h3>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Change Password</h4>
+                            <p>Update your account password regularly for security</p>
+                        </div>
+                        <button class="btn-action" id="changePasswordBtn">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Update Email Address</h4>
+                            <p>Change your primary email address associated with your account</p>
+                        </div>
+                        <button class="btn-action" id="updateEmailBtn">
+                            <i class="fas fa-envelope"></i> Update Email
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Add an extra layer of security to your account</p>
+                        </div>
+                        <button class="btn-action" id="enableTfaBtn">
+                            <i class="fas fa-shield-alt"></i> Enable 2FA
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Logout from All Devices</h4>
+                            <p>Terminate all active sessions on your account</p>
+                        </div>
+                        <button class="btn-action danger" id="logoutAllBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout All Devices
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Delete Account Section (Optional) -->
+            <section class="profile-section danger-zone">
+                <div class="section-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                </div>
+
+                <div class="danger-item">
+                    <div class="danger-info">
+                        <h4>Delete Account</h4>
+                        <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+                    </div>
+                    <button class="btn-danger" id="deleteAccountBtn">
+                        <i class="fas fa-trash-alt"></i> Delete Account
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Personal Info Modal -->
+    <div id="editPersonalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Personal Information</h3>
+                <button class="modal-close" id="closePersonalModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" value="Juan Dela Cruz">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" class="form-input" value="2001-01-15">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select class="form-input">
+                            <option selected>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Civil Status</label>
+                        <select class="form-input">
+                            <option selected>Single</option>
+                            <option>Married</option>
+                            <option>Divorced</option>
+                            <option>Widowed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nationality</label>
+                        <input type="text" class="form-input" value="Filipino">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelPersonalModal">Cancel</button>
+                <button class="btn-save" id="savePersonalModal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Contact Info Modal -->
+    <div id="editContactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Contact Information</h3>
+                <button class="modal-close" id="closeContactModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" value="juan.delacruz@student.essu.edu.ph">
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" class="form-input" value="+63 917-234-5678">
+                </div>
+                <div class="form-group">
+                    <label>Home Address</label>
+                    <textarea class="form-input textarea">123 Main Street, Guiuan, Eastern Samar 6800, Philippines</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Emergency Contact Name</label>
+                    <input type="text" class="form-input" value="Maria Dela Cruz (Mother)">
+                </div>
+                <div class="form-group">
+                    <label>Emergency Contact Number</label>
+                    <input type="tel" class="form-input" value="+63 917-234-5679">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelContactModal">Cancel</button>
+                <button class="btn-save" id="saveContactModal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close" id="closePasswordModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" class="form-input" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" class="form-input" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-input" placeholder="Confirm new password">
+                </div>
+                <p class="form-hint">Password must be at least 8 characters long and contain uppercase, lowercase, and numbers.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelPasswordModal">Cancel</button>
+                <button class="btn-save" id="savePasswordModal">Change Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelConfirmModal">Cancel</button>
+                <button class="btn-confirm" id="confirmActionModal">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../student_js/student-profile.js"></script>
+</body>
+</html>

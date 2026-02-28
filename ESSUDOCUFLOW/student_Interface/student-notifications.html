@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | ESSU-GradDocuFlow</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../student-css/student-notifications.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (UNCHANGED) ===== -->
+        <aside class="sidebar student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Student Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span>JD</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Juan Dela Cruz</h4>
+                        <p>2022-00123</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="student-my-documents.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                </a>
+                <a href="student-request.html" class="nav-item">
+                    <i class="fas fa-file-import"></i>
+                    <span>Document Request</span>
+                </a>
+                <a href="student-notifications.html" class="nav-item active">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="student-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <div class="sidebar-footer">
+                    <a href="../loginform/student-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Notifications</h1>
+                    <p class="subtitle">Stay updated on your requests and clearances</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-mark-all" id="markAllBtn">
+                        <i class="fas fa-check-double"></i> Mark All as Read
+                    </button>
+                </div>
+            </header>
+
+            <!-- Summary Bar -->
+            <section class="summary-bar">
+                <div class="summary-card">
+                    <div class="summary-icon total">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Total Notifications</span>
+                        <span class="summary-value" id="totalNotif">12</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon unread">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Unread</span>
+                        <span class="summary-value" id="unreadNotif">5</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Approved</span>
+                        <span class="summary-value" id="approvedNotif">4</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon system">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">System Alerts</span>
+                        <span class="summary-value" id="systemNotif">3</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter & Controls Section -->
+            <section class="filter-section">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search notifications...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="approved">
+                            <i class="fas fa-check-circle"></i> Approved
+                        </button>
+                        <button class="filter-btn" data-filter="rejected">
+                            <i class="fas fa-times-circle"></i> Rejected
+                        </button>
+                        <button class="filter-btn" data-filter="pending">
+                            <i class="fas fa-clock"></i> Pending
+                        </button>
+                        <button class="filter-btn" data-filter="system">
+                            <i class="fas fa-bell"></i> System
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications List -->
+            <section class="notifications-section">
+                <!-- Approved Notification 1 -->
+                <div class="notification-card unread" data-type="approved" data-id="1">
+                    <div class="notification-indicator"></div>
+                    <div class="notification-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Your TOR Request Has Been Approved</h3>
+                            <span class="notification-badge approved">
+                                <i class="fas fa-check-circle"></i> Approved
+                            </span>
+                        </div>
+                        <p class="notification-message">Your Transcript of Records request has been approved by the Registrar. You may now download the document from your My Documents section.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 12, 2026 – 2:14 PM
+                            </span>
+                            <button class="btn-view-details" data-id="1">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rejected Notification -->
+                <div class="notification-card unread" data-type="rejected" data-id="2">
+                    <div class="notification-indicator"></div>
+                    <div class="notification-icon rejected">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Document Rejected – Payment Receipt Missing</h3>
+                            <span class="notification-badge rejected">
+                                <i class="fas fa-times-circle"></i> Rejected
+                            </span>
+                        </div>
+                        <p class="notification-message">Your Certificate of Graduation request was rejected. Please upload a valid payment receipt to proceed with your request.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 11, 2026 – 9:32 AM
+                            </span>
+                            <button class="btn-view-details" data-id="2">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Notification -->
+                <div class="notification-card unread" data-type="pending" data-id="3">
+                    <div class="notification-indicator"></div>
+                    <div class="notification-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Reminder: Department Clearance Pending</h3>
+                            <span class="notification-badge pending">
+                                <i class="fas fa-clock"></i> Pending
+                            </span>
+                        </div>
+                        <p class="notification-message">You still need to complete your Department Clearance to proceed with graduation. Please visit the department office to get the required signature.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 10, 2026 – 3:10 PM
+                            </span>
+                            <button class="btn-view-details" data-id="3">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Alert -->
+                <div class="notification-card unread" data-type="system" data-id="4">
+                    <div class="notification-indicator"></div>
+                    <div class="notification-icon system">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">System Maintenance Notice</h3>
+                            <span class="notification-badge system">
+                                <i class="fas fa-bell"></i> System Alert
+                            </span>
+                        </div>
+                        <p class="notification-message">The system will undergo scheduled maintenance on February 15, 2026 from 8:00 PM to 10:00 PM. Please plan accordingly.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 09, 2026 – 8:00 AM
+                            </span>
+                            <button class="btn-view-details" data-id="4">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approved Notification 2 -->
+                <div class="notification-card" data-type="approved" data-id="5">
+                    <div class="notification-indicator"></div>
+                    <div class="notification-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Finance Clearance Completed</h3>
+                            <span class="notification-badge approved">
+                                <i class="fas fa-check-circle"></i> Approved
+                            </span>
+                        </div>
+                        <p class="notification-message">Your Finance Clearance has been completed. All tuition payments have been verified. You may proceed with other graduation requirements.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 08, 2026 – 10:45 AM
+                            </span>
+                            <button class="btn-view-details" data-id="5">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approved Notification 3 -->
+                <div class="notification-card" data-type="approved" data-id="6">
+                    <div class="notification-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Library Clearance Approved</h3>
+                            <span class="notification-badge approved">
+                                <i class="fas fa-check-circle"></i> Approved
+                            </span>
+                        </div>
+                        <p class="notification-message">Your Library Clearance has been approved. All library materials have been accounted for and no fines remain.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 07, 2026 – 2:30 PM
+                            </span>
+                            <button class="btn-view-details" data-id="6">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Alert 2 -->
+                <div class="notification-card" data-type="system" data-id="7">
+                    <div class="notification-icon system">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">New Feature: Download Checklist Available</h3>
+                            <span class="notification-badge system">
+                                <i class="fas fa-bell"></i> System Alert
+                            </span>
+                        </div>
+                        <p class="notification-message">We've added a new feature to download your graduation checklist. Visit the Checklist & Clearance page to get started.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 06, 2026 – 9:00 AM
+                            </span>
+                            <button class="btn-view-details" data-id="7">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Notification 2 -->
+                <div class="notification-card" data-type="pending" data-id="8">
+                    <div class="notification-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Your Request is Under Review</h3>
+                            <span class="notification-badge pending">
+                                <i class="fas fa-clock"></i> Pending
+                            </span>
+                        </div>
+                        <p class="notification-message">Your Diploma request is currently under review by the Registrar office. You will receive an update within 3-5 business days.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 05, 2026 – 11:20 AM
+                            </span>
+                            <button class="btn-view-details" data-id="8">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rejected Notification 2 -->
+                <div class="notification-card" data-type="rejected" data-id="9">
+                    <div class="notification-icon rejected">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <h3 class="notification-title">Request Needs Revision – Document Quality Issue</h3>
+                            <span class="notification-badge rejected">
+                                <i class="fas fa-times-circle"></i> Rejected
+                            </span>
+                        </div>
+                        <p class="notification-message">The uploaded document is not clear enough to process. Please upload a clearer scan or photograph of your document.</p>
+                        <div class="notification-footer">
+                            <span class="notification-time">
+                                <i class="fas fa-calendar-alt"></i> Feb 04, 2026 – 1:50 PM
+                            </span>
+                            <button class="btn-view-details" data-id="9">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State (Hidden by default) -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                    <h3>No notifications found</h3>
+                    <p>Try adjusting your search or filters</p>
+                </div>
+            </section>
+
+            <!-- Pagination -->
+            <section class="pagination-section">
+                <div class="pagination">
+                    <button class="page-btn prev-btn">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                        <button class="page-number">2</button>
+                        <button class="page-number">3</button>
+                    </div>
+                    <button class="page-btn next-btn">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="pagination-info">
+                    <span id="pageInfo">Showing 1-9 of 12 notifications</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Notification Details</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-badge" id="modalBadge"></div>
+                <p id="modalMessage"></p>
+                <div class="modal-footer-info">
+                    <span id="modalDate"></span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-close-modal" id="closeModalBtn">Close</button>
+                <button class="btn-action-modal" id="actionBtn" style="display: none;">Take Action</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../student_js/student-notifications.js"></script>
+</body>
+</html>

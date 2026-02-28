@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Requests | ESSU-GradDocuFlow Staff</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../staff-css/staff-all-requests.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (STAFF VERSION) ===== -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Staff Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar staff">
+                        <span>AR</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Admin Registrar</h4>
+                        <p>Staff Account</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="staff-dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="staff-pending-requests.html" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Requests</span>
+                </a>
+                <a href="staff-all-requests.html" class="nav-item active">
+                    <i class="fas fa-list-alt"></i>
+                    <span>All Requests</span>
+                </a>
+                <a href="staff-student-registry.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Student Registry</span>
+                </a>
+                <a href="staff-document-process.html" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Document Processing</span>
+                </a>
+                <a href="staff-report.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="staff-document-templates.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Templates</span>
+                </a>
+                <a href="staff-notification.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="staff-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <div class="sidebar-footer">
+                    <a href="../loginform/admin-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>All Requests</h1>
+                    <p class="subtitle">View and monitor all document requests submitted by students.</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-export" id="exportCsvBtn">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                    <button class="btn-export pdf" id="exportPdfBtn">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </header>
+
+            <!-- Quick Stats Cards -->
+            <section class="stats-section">
+                <div class="stat-card pending">
+                    <div class="stat-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-value" id="statPending">0</span>
+                    </div>
+                </div>
+                <div class="stat-card processing">
+                    <div class="stat-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Processing</span>
+                        <span class="stat-value" id="statProcessing">0</span>
+                    </div>
+                </div>
+                <div class="stat-card completed">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="statCompleted">0</span>
+                    </div>
+                </div>
+                <div class="stat-card rejected">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Rejected</span>
+                        <span class="stat-value" id="statRejected">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by Student Name, Request ID, or Student ID...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="documentFilter" class="filter-select">
+                            <option value="">All Documents</option>
+                            <option value="TOR">Transcript of Records</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Certificate">Certificate of Graduation</option>
+                            <option value="GMC">Good Moral Certificate</option>
+                        </select>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="ready">Ready for Release</option>
+                            <option value="completed">Completed</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <select id="paymentFilter" class="filter-select">
+                            <option value="">All Payments</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Unpaid">Unpaid</option>
+                            <option value="For Verification">For Verification</option>
+                        </select>
+                        <select id="programFilter" class="filter-select">
+                            <option value="">All Programs</option>
+                            <option value="BSIT">BS Information Technology</option>
+                            <option value="BSED">BS Education</option>
+                            <option value="BSCS">BS Computer Science</option>
+                            <option value="BSBM">BS Business Management</option>
+                        </select>
+                    </div>
+                    <div class="filter-extras">
+                        <label class="checkbox-filter">
+                            <input type="checkbox" id="rushFilter">
+                            <span>Rush Only</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requests Table -->
+            <section class="table-section">
+                <div class="table-container">
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Program</th>
+                                <th>Document Type</th>
+                                <th>Date Requested</th>
+                                <th>Payment Status</th>
+                                <th>Processing Status</th>
+                                <th>Priority</th>
+                                <th>Assigned Staff</th>
+                                <th>Date Completed</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+
+                            <!-- ROW 1: payment_verified=1, rush_request=0, status=pending -->
+                            <tr class="request-row"
+                                data-program="BSIT"
+                                data-doc-type="TOR"
+                                data-status="pending"
+                                data-payment="Paid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-001</td>
+                                <td>Juan Dela Cruz</td>
+                                <td>2021-00123</td>
+                                <td>BSIT</td>
+                                <td>TOR</td>
+                                <td>Feb 12, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>Admin Registrar</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-001" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 2: payment_verified=1, rush_request=0, status=processing -->
+                            <tr class="request-row"
+                                data-program="BSED"
+                                data-doc-type="Diploma"
+                                data-status="processing"
+                                data-payment="Paid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-002</td>
+                                <td>Maria Santos</td>
+                                <td>2020-00456</td>
+                                <td>BSED</td>
+                                <td>Diploma</td>
+                                <td>Feb 11, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge processing">Processing</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>Admin Registrar</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-002" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 3: payment_verified=0, rush_request=0, status=pending -->
+                            <tr class="request-row"
+                                data-program="BSCS"
+                                data-doc-type="Certificate"
+                                data-status="pending"
+                                data-payment="Unpaid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-003</td>
+                                <td>Carlos Reyes</td>
+                                <td>2022-00789</td>
+                                <td>BSCS</td>
+                                <td>Certificate</td>
+                                <td>Feb 10, 2026</td>
+                                <td><span class="payment-badge unpaid">Unpaid</span></td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-003" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 4: payment_verified=1, rush_request=1, status=processing -->
+                            <tr class="request-row"
+                                data-program="BSBM"
+                                data-doc-type="GMC"
+                                data-status="processing"
+                                data-payment="Paid"
+                                data-rush="true">
+                                <td class="request-id-cell">REQ-2026-004</td>
+                                <td>Angela Davis</td>
+                                <td>2021-00321</td>
+                                <td>BSBM</td>
+                                <td>GMC</td>
+                                <td>Feb 09, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge processing">Processing</span></td>
+                                <td><span class="priority-badge rush">Rush</span></td>
+                                <td>Admin Registrar</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-004" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 5: payment_verified=1, rush_request=0, status=ready -->
+                            <tr class="request-row"
+                                data-program="BSIT"
+                                data-doc-type="TOR"
+                                data-status="ready"
+                                data-payment="Paid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-005</td>
+                                <td>Robert Johnson</td>
+                                <td>2020-00654</td>
+                                <td>BSIT</td>
+                                <td>TOR</td>
+                                <td>Feb 08, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge ready">Ready for Release</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>Admin Registrar</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-005" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 6: payment_verified=null (For Verification), rush_request=0, status=pending -->
+                            <tr class="request-row"
+                                data-program="BSCS"
+                                data-doc-type="Certificate"
+                                data-status="pending"
+                                data-payment="For Verification"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-006</td>
+                                <td>Jennifer Lee</td>
+                                <td>2022-00987</td>
+                                <td>BSCS</td>
+                                <td>Certificate</td>
+                                <td>Feb 07, 2026</td>
+                                <td><span class="payment-badge verification">For Verification</span></td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-006" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 7: payment_verified=1, rush_request=1, status=completed -->
+                            <tr class="request-row"
+                                data-program="BSED"
+                                data-doc-type="Diploma"
+                                data-status="completed"
+                                data-payment="Paid"
+                                data-rush="true">
+                                <td class="request-id-cell">REQ-2026-007</td>
+                                <td>Michael Brown</td>
+                                <td>2019-00147</td>
+                                <td>BSED</td>
+                                <td>Diploma</td>
+                                <td>Feb 06, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td><span class="priority-badge rush">Rush</span></td>
+                                <td>Admin Registrar</td>
+                                <td>Feb 10, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-007" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 8: payment_verified=0, rush_request=0, status=rejected -->
+                            <tr class="request-row"
+                                data-program="BSBM"
+                                data-doc-type="GMC"
+                                data-status="rejected"
+                                data-payment="Unpaid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-008</td>
+                                <td>Sophie Wilson</td>
+                                <td>2023-00258</td>
+                                <td>BSBM</td>
+                                <td>GMC</td>
+                                <td>Feb 05, 2026</td>
+                                <td><span class="payment-badge unpaid">Unpaid</span></td>
+                                <td><span class="status-badge rejected">Rejected</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>Admin Registrar</td>
+                                <td>Feb 08, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-008" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 9: payment_verified=1, rush_request=0, status=cancelled -->
+                            <tr class="request-row"
+                                data-program="BSIT"
+                                data-doc-type="TOR"
+                                data-status="cancelled"
+                                data-payment="Paid"
+                                data-rush="false">
+                                <td class="request-id-cell">REQ-2026-009</td>
+                                <td>David Garcia</td>
+                                <td>2021-00369</td>
+                                <td>BSIT</td>
+                                <td>TOR</td>
+                                <td>Feb 04, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge cancelled">Cancelled</span></td>
+                                <td><span class="priority-badge regular">Regular</span></td>
+                                <td>—</td>
+                                <td>Feb 06, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-009" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- ROW 10: payment_verified=1, rush_request=1, status=completed -->
+                            <tr class="request-row"
+                                data-program="BSCS"
+                                data-doc-type="GMC"
+                                data-status="completed"
+                                data-payment="Paid"
+                                data-rush="true">
+                                <td class="request-id-cell">REQ-2026-010</td>
+                                <td>Lisa Fernandez</td>
+                                <td>2020-00741</td>
+                                <td>BSCS</td>
+                                <td>GMC</td>
+                                <td>Feb 03, 2026</td>
+                                <td><span class="payment-badge paid">Paid</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td><span class="priority-badge rush">Rush</span></td>
+                                <td>Admin Registrar</td>
+                                <td>Feb 05, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" data-request-id="REQ-2026-010" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-print-row" title="Print">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-export-row" title="Export">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ===== DETAILS MODAL ===== -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content xlarge">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Request Details</h2>
+                    <p id="modalRequestId" class="modal-subtitle"></p>
+                </div>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Student Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-user"></i> Student Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Full Name</label>
+                            <p id="detailName"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Student ID</label>
+                            <p id="detailStudentId"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email</label>
+                            <p id="detailEmail"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Phone Number</label>
+                            <p id="detailPhone"></p>
+                        </div>
+                        <div class="detail-item full-width">
+                            <label>Address</label>
+                            <p id="detailAddress"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-file-alt"></i> Document Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Document Type</label>
+                            <p id="detailDocType"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Purpose</label>
+                            <p id="detailPurpose"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Number of Copies</label>
+                            <p id="detailCopies"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Priority</label>
+                            <p id="detailPriority"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-credit-card"></i> Payment Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Payment Method</label>
+                            <p id="detailPaymentMethod"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Amount Paid</label>
+                            <p id="detailAmount"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date of Payment</label>
+                            <p id="detailPaymentDate"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Payment Status</label>
+                            <p id="detailPaymentStatus"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status History Timeline -->
+                <div class="details-section">
+                    <h3><i class="fas fa-history"></i> Status History Timeline</h3>
+                    <div class="timeline" id="statusTimeline">
+                        <!-- Timeline populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancel" id="modalCancel">Close</button>
+                <div class="modal-actions">
+                    <button class="btn-print" id="printBtn">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../staff_js/staff-all-requests.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Requests | ESSU-GradDocuFlow Staff</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../staff-css/staff-pending-requests.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (STAFF VERSION) ===== -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Staff Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar staff">
+                        <span></span>
+                    </div>
+                    <div class="user-info">
+                        <h4></h4>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="staff-dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="staff-pending-requests.html" class="nav-item active">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Requests</span>
+                </a>
+                <a href="staff-all-requests.html" class="nav-item">
+                    <i class="fas fa-list-alt"></i>
+                    <span>All Requests</span>
+                </a>
+                <a href="staff-student-registry.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Student Registry</span>
+                </a>
+                <a href="staff-document-process.html" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Document Processing</span>
+                </a>
+                <a href="staff-report.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="staff-document-templates.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Templates</span>
+                </a>
+                <a href="staff-notification.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="staff-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/admin-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Pending Requests</h1>
+                    <p class="subtitle">
+                        Requests awaiting review and verification by registrar staff.
+                    </p>
+                </div>
+                <div class="header-right">
+                    <span class="pending-count">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong id="pendingCount"></strong> Pending
+                    </span>
+                </div>
+            </header>
+
+            <!-- Filters -->
+            <section class="filter-section">
+                <div class="filter-controls">
+
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput"
+                            placeholder="Search by Student Name, ID, or Request ID...">
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="documentFilter" class="filter-select">
+                            <option value="">All Document Types</option>
+                        </select>
+
+                        <select id="programFilter" class="filter-select">
+                            <option value="">All Programs</option>
+                        </select>
+
+                        <select id="paymentFilter" class="filter-select">
+                            <option value="">All Payment Status</option>
+                        </select>
+
+                        <select id="sortFilter" class="filter-select">
+                            <option value="newest">Recently Submitted</option>
+                        </select>
+                    </div>
+
+                    <label class="checkbox-filter">
+                        <input type="checkbox" id="rushFilter">
+                        <span>Show Rush Requests Only</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- TABLE -->
+            <section class="table-section">
+                <div class="table-container">
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Course / Program</th>
+                                <th>Document Type</th>
+                                <th>Date Requested</th>
+                                <th>Payment Status</th>
+                                <th>Priority</th>
+                                <th>Current Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- No data rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ===== DETAILS MODAL ===== -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Request Details</h2>
+                    <p id="modalRequestId" class="modal-subtitle"></p>
+                </div>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Student Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-user"></i> Student Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item"><label>Full Name</label><p id="detailName"></p></div>
+                        <div class="detail-item"><label>Student ID</label><p id="detailStudentId"></p></div>
+                        <div class="detail-item"><label>Email</label><p id="detailEmail"></p></div>
+                        <div class="detail-item"><label>Phone Number</label><p id="detailPhone"></p></div>
+                        <div class="detail-item full-width"><label>Address</label><p id="detailAddress"></p></div>
+                    </div>
+                </div>
+
+                <!-- Document Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-file-alt"></i> Document Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item"><label>Document Type</label><p id="detailDocType"></p></div>
+                        <div class="detail-item"><label>Purpose</label><p id="detailPurpose"></p></div>
+                        <div class="detail-item"><label>Number of Copies</label><p id="detailCopies"></p></div>
+                        <div class="detail-item full-width"><label>Special Instructions</label><p id="detailInstructions"></p></div>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="details-section">
+                    <h3><i class="fas fa-credit-card"></i> Payment Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item"><label>Payment Method</label><p id="detailPaymentMethod"></p></div>
+                        <div class="detail-item"><label>Amount</label><p id="detailAmount"></p></div>
+                        <div class="detail-item"><label>Payment Date</label><p id="detailPaymentDate"></p></div>
+                        <div class="detail-item"><label>Reference No.</label><p id="detailPaymentRef"></p></div>
+                    </div>
+                    <div class="payment-proof">
+                        <label>Payment Proof</label>
+                        <div class="proof-preview">
+                            <i class="fas fa-image"></i>
+                            <p>Click to view payment proof</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attachments -->
+                <div class="details-section">
+                    <h3><i class="fas fa-paperclip"></i> Submitted Attachments</h3>
+                    <div class="attachments-list" id="attachmentsList"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancel" id="modalCancel">Close</button>
+                <div class="modal-actions">
+                    <button class="btn-reject-modal" id="rejectModalBtn">
+                        <i class="fas fa-times"></i> Reject
+                    </button>
+                    <button class="btn-approve-modal" id="approveModalBtn">
+                        <i class="fas fa-check"></i> Approve
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CONFIRM MODAL ===== -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <div>
+                    <h2 id="confirmTitle">Confirm Action</h2>
+                </div>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+                <div id="reasonSection" style="display:none; margin-top: 16px;">
+                    <label style="font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#64748b; display:block; margin-bottom:8px;">Reason / Notes</label>
+                    <textarea id="reasonInput" class="form-input" rows="3"
+                        style="width:100%; resize:vertical;"
+                        placeholder="Enter reason here..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: flex-end; gap: 12px;">
+                <button class="btn-cancel" id="confirmCancel">Cancel</button>
+                <button class="btn-confirm" id="confirmAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../staff_js/staff-pending-requests.js"></script>
+</body>
+</html>

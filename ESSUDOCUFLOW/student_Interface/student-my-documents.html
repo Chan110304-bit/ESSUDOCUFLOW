@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Documents | ESSU-GradDocuFlow</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../student-css/student-my-documents.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Student Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span>JD</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Juan Dela Cruz</h4>
+                        <p>2022-00123</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="student-my-documents.html" class="nav-item active">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="student-request.html" class="nav-item">
+                    <i class="fas fa-file-import"></i>
+                    <span>Document Request</span>
+                </a>
+                <a href="student-notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="student-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/student-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+       <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="content-header">
+            <div class="header-left">
+                <h1>My Documents</h1>
+                <p class="subtitle">Track, manage, and download your academic documents</p>
+            </div>
+        </header>
+
+        <!-- ===== STATS (CLEARED) ===== -->
+        <div class="docs-stats">
+            <div class="stat-box">
+                <div class="stat-icon submitted">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Submitted</span>
+                    <span class="stat-number" id="totalSubmitted"></span>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon approved">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Approved</span>
+                    <span class="stat-number" id="totalApproved"></span>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Pending</span>
+                    <span class="stat-number" id="totalPending"></span>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon revision">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">For Revision</span>
+                    <span class="stat-number" id="totalRevision"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="docs-tabs">
+            <button class="tab-btn active" data-tab="submitted">
+                <i class="fas fa-cloud-upload-alt"></i> Submitted <span class="tab-badge"></span>
+            </button>
+
+            <button class="tab-btn" data-tab="approved">
+                <i class="fas fa-check-circle"></i> Approved <span class="tab-badge"></span>
+            </button>
+
+            <button class="tab-btn" data-tab="history">
+                <i class="fas fa-history"></i> Download History <span class="tab-badge"></span>
+            </button>
+        </div>
+
+        <!-- ===== SUBMITTED TAB ===== -->
+        <section id="submitted-tab" class="tab-content active">
+            <div class="table-wrapper">
+                <table class="docs-table submitted-table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Document Type</th>
+                            <th>Date Submitted</th>
+                            <th>Payment Status</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic submitted rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== APPROVED TAB ===== -->
+        <section id="approved-tab" class="tab-content">
+            <div class="table-wrapper">
+                <table class="docs-table approved-table">
+                    <thead>
+                        <tr>
+                            <th>Document Name</th>
+                            <th>Control Number</th>
+                            <th>Date Approved</th>
+                            <th>Release Status</th>
+                            <th>Valid Until</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic approved rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== HISTORY TAB ===== -->
+        <section id="history-tab" class="tab-content">
+            <div class="history-container">
+                <!-- Dynamic history entries here -->
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- ===== DETAIL MODAL ===== -->
+<div id="detailModal" class="modal">
+    <div class="modal-content detail-modal">
+        <div class="modal-header">
+            <h2>Request Details</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="detailReqId"></p>
+            <p id="detailDocType"></p>
+            <p id="detailPurpose"></p>
+            <p id="detailDateSubmitted"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary close-modal-btn">Close</button>
+        </div>
+    </div>
+</div>
+
+<script src="../student_js/student-my-documents.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | ESSU-GradDocuFlow</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../dashboard-template/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <aside class="sidebar student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Student Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span>JD</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Juan Dela Cruz</h4>
+                        <p>2022-00123</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="student-dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="student-my-documents.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                </a>
+                <a href="student-request.html" class="nav-item">
+                    <i class="fas fa-file-import"></i>
+                    <span>Document Request</span>
+                </a>
+                <a href="student-notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="student-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/student-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Welcome Back, Juan!</h1>
+                    <p class="subtitle">Your student dashboard overview</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-display">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Tuesday, Jan 20, 2026</span>
+                    </div>
+                    <button class="btn-primary btn-icon">
+                        <i class="fas fa-plus"></i>
+                        New Request
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Active Requests Widget -->
+                <div class="widget card-widget">
+                    <div class="widget-header">
+                        <h3><i class="fas fa-clock"></i> Active Document Requests</h3>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="request-list">
+                        <!-- Requests will dynamically populate here -->
+                    </div>
+                </div>
+
+                <!-- Checklist Widget -->
+                <div class="widget card-widget">
+                    <div class="widget-header">
+                        <h3><i class="fas fa-tasks"></i> Checklist & Clearance</h3>
+                        <div class="progress-circle" data-value="0">
+                            <span>0%</span>
+                        </div>
+                    </div>
+                    <div class="checklist-items">
+                        <!-- Checklist items will dynamically populate here -->
+                    </div>
+                </div>
+
+                <!-- Notifications Widget -->
+                <div class="widget card-widget">
+                    <div class="widget-header">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <span class="badge alert">0 New</span>
+                    </div>
+                    <div class="notification-list">
+                        <!-- Notifications will dynamically populate here -->
+                    </div>
+                </div>
+
+                <!-- Quick Actions Widget -->
+                <div class="widget quick-actions-widget">
+                    <div class="widget-header">
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">
+                            <i class="fas fa-file-download"></i>
+                            <span>Download Forms</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Schedule Appointment</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-question"></i>
+                            <span>Request Help</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-history"></i>
+                            <span>View History</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../student_js/student-dashboard-script.js"></script>
+</body>
+</html>

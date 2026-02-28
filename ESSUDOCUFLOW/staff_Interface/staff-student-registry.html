@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registry | ESSU-GradDocuFlow Staff</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../staff-css/staff-student-registry.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (STAFF VERSION) ===== -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Staff Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar staff">
+                        <span>AR</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Admin Registrar</h4>
+                        <p>Staff Account</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="staff-dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="staff-pending-requests.html" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Requests</span>
+                </a>
+                <a href="staff-all-requests.html" class="nav-item">
+                    <i class="fas fa-list-alt"></i>
+                    <span>All Requests</span>
+                </a>
+                <a href="staff-student-registry.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Student Registry</span>
+                </a>
+                <a href="staff-document-process.html" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Document Processing</span>
+                </a>
+                <a href="staff-report.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="staff-document-templates.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Templates</span>
+                </a>
+                <a href="staff-notification.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="staff-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/admin-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Student Registry</h1>
+                    <p class="subtitle">Search students, view profiles, and manage student records.</p>
+                </div>
+            </header>
+
+            <!-- Filter & Stats Section -->
+            <section class="registry-toolbar">
+                <div class="toolbar-left">
+                    <div class="stats-group">
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-users"></i></span>
+                            <div class="stat-content">
+                                <p class="stat-label">Total Students</p>
+                                <p class="stat-value" id="totalStudents">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-header">
+                    <h3><i class="fas fa-filter"></i> Filter & Search</h3>
+                </div>
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by Student ID, Name, or Year...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="programFilter" class="filter-select">
+                            <option value="">All Programs</option>
+                            <option value="BSIT">BS Information Technology</option>
+                            <option value="BSED">BS Education</option>
+                            <option value="BSCS">BS Computer Science</option>
+                            <option value="BSBM">BS Business Management</option>
+                        </select>
+                        <select id="yearFilter" class="filter-select">
+                            <option value="">All Years</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                        <select id="clearanceFilter" class="filter-select">
+                            <option value="">All Clearance Status</option>
+                            <option value="cleared">Cleared</option>
+                            <option value="with-balance">With Balance</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                        <select id="pendingFilter" class="filter-select">
+                            <option value="">All Request Status</option>
+                            <option value="has-pending">Has Pending</option>
+                            <option value="no-pending">No Pending</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Students Table -->
+            <section class="table-section widget">
+                <div class="table-header">
+                    <h3><i class="fas fa-table"></i> Registered Students</h3>
+                    <span class="table-count" id="tableCount">0 students</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>Program</th>
+                                <th>Year</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Clearance</th>
+                                <th>Requests</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Student rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-section">
+                    <div class="pagination-info">
+                        <span id="pageInfo">Showing 0 students</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn prev" id="prevBtn" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="page-numbers" id="pageNumbers">
+                            <button class="page-btn active">1</button>
+                        </div>
+                        <button class="pagination-btn next" id="nextBtn" disabled>
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="items-per-page">
+                        <label>Show:</label>
+                        <select id="itemsPerPageSelect" class="items-select">
+                            <option value="15" selected>15 per page</option>
+                            <option value="25">25 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ===== STUDENT PROFILE MODAL ===== -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal">
+            <div class="modal-header profile-header">
+                <div class="header-content">
+                    <h2 id="profileTitle">Student Profile</h2>
+                    <p class="profile-subtitle" id="profileSubtitle">Student ID • Program</p>
+                </div>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Form Tabs Navigation -->
+                <div class="form-tabs">
+                    <button class="form-tab-btn active" data-tab="personal">
+                        <i class="fas fa-user"></i> Personal
+                    </button>
+                    <button class="form-tab-btn" data-tab="academic">
+                        <i class="fas fa-graduation-cap"></i> Academic
+                    </button>
+                    <button class="form-tab-btn" data-tab="requests">
+                        <i class="fas fa-clipboard-list"></i> Requests
+                    </button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="form-tabs-content">
+                    <div class="form-tab-content active" id="form-personal"></div>
+                    <div class="form-tab-content" id="form-academic"></div>
+                    <div class="form-tab-content" id="form-requests"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" id="modalCancel">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../staff_js/staff-student-registry.js"></script>
+    <script src="../dashboard-template/base-dashboard.js"></script>
+</body>
+
+</html>

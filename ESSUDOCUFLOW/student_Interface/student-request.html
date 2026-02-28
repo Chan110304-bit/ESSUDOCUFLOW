@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Request | ESSU-GradDocuFlow</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link rel="stylesheet" href="../student-css/student-request.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== DOCUMENT CATEGORY STYLES ===== */
+        .doc-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .doc-category {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .doc-category-header {
+            background: var(--bg-light);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-category-header i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .doc-category-header h4 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .doc-category-body {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 12px;
+            padding: 16px;
+            background: white;
+        }
+
+        .doc-option {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .doc-option input[type="radio"] {
+            display: none;
+        }
+
+        .doc-card {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            height: 100%;
+        }
+
+        .doc-option:hover .doc-card {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .doc-option.selected .doc-card {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(27,94,32,0.08);
+        }
+
+        .doc-card-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .doc-option.selected .doc-card-icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        .doc-card-info h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 3px 0;
+            line-height: 1.3;
+        }
+
+        .doc-card-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .doc-check {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .doc-option.selected .doc-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Digital delivery notice */
+        .digital-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--primary-light);
+            border: 1.5px solid var(--primary);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-top: 24px;
+        }
+
+        .digital-notice i {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .digital-notice-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0 0 4px 0;
+        }
+
+        .digital-notice-text p {
+            font-size: 0.875rem;
+            color: var(--primary-dark);
+            margin: 0;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Student Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <span>JD</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Juan Dela Cruz</h4>
+                        <p>2022-00123</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="student-my-documents.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                </a>
+                <a href="student-request.html" class="nav-item active">
+                    <i class="fas fa-file-import"></i>
+                    <span>Document Request</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="student-notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="student-profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <div class="sidebar-footer">
+                    <a href="../loginform/student-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Document Request Portal</h1>
+                    <p class="subtitle">Request official academic documents — delivered digitally to your email</p>
+                </div>
+            </header>
+
+            <div class="form-wrapper">
+
+                <!-- Process Timeline -->
+                <div class="process-timeline">
+                    <div class="timeline-step active" data-step="1">
+                        <div class="timeline-step-circle">1</div>
+                        <div class="timeline-step-label">Select Document</div>
+                    </div>
+                    <div class="timeline-step" data-step="2">
+                        <div class="timeline-step-circle">2</div>
+                        <div class="timeline-step-label">Fill Details</div>
+                    </div>
+                    <div class="timeline-step" data-step="3">
+                        <div class="timeline-step-circle">3</div>
+                        <div class="timeline-step-label">List Subjects</div>
+                    </div>
+                    <div class="timeline-step" data-step="4">
+                        <div class="timeline-step-circle">4</div>
+                        <div class="timeline-step-label">Clearance</div>
+                    </div>
+                    <div class="timeline-step" data-step="5">
+                        <div class="timeline-step-circle">5</div>
+                        <div class="timeline-step-label">Upload Requirements</div>
+                    </div>
+                    <div class="timeline-step" data-step="6">
+                        <div class="timeline-step-circle">6</div>
+                        <div class="timeline-step-label">Review & Submit</div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 1: SELECT DOCUMENT TYPE
+                     Backend: requests.document_type
+                     Delivery: digital only (no delivery_method column needed)
+                     ========================================== -->
+                <div class="workflow-step" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <h2>Select Document Type</h2>
+                            <p>Choose the official academic document you need</p>
+                        </div>
+                    </div>
+
+                    <!-- Digital-only delivery notice -->
+                    <div class="digital-notice">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <div class="digital-notice-text">
+                            <h4>Digital Delivery Only</h4>
+                            <p>All requested documents are sent as official digital copies to your registered email. No physical pick-up or courier is available.</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-categories">
+
+                        <!-- ── CATEGORY 1: Academic Transcripts ── -->
+                        <div class="doc-category">
+                            <div class="doc-category-header">
+                                <i class="fas fa-scroll"></i>
+                                <h4>Academic Transcripts</h4>
+                            </div>
+                            <div class="doc-category-body">
+
+                                <!-- requests.document_type = 'Transcript of Records' -->
+                                <label class="doc-option selected" data-doc="Transcript of Records">
+                                    <input type="radio" name="document_type" value="Transcript of Records" checked>
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-scroll"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Transcript of Records (TOR)</h3>
+                                            <p>Complete record of your grades</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Grades Report' -->
+                                <label class="doc-option" data-doc="Grades Report">
+                                    <input type="radio" name="document_type" value="Grades Report">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-list-ol"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Grades Report / Certification of Grades</h3>
+                                            <p>Shorter version of TOR</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- ── CATEGORY 2: Diplomas and Certificates ── -->
+                        <div class="doc-category">
+                            <div class="doc-category-header">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h4>Diplomas and Certificates</h4>
+                            </div>
+                            <div class="doc-category-body">
+
+                                <!-- requests.document_type = 'Diploma' -->
+                                <label class="doc-option" data-doc="Diploma">
+                                    <input type="radio" name="document_type" value="Diploma">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-award"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Diploma / Degree Certificate</h3>
+                                            <p>Proof of graduation</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certificate of Graduation' -->
+                                <label class="doc-option" data-doc="Certificate of Graduation">
+                                    <input type="radio" name="document_type" value="Certificate of Graduation">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-certificate"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certificate of Graduation / Completion</h3>
+                                            <p>Official confirmation of graduation</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certificate of Recognition' -->
+                                <label class="doc-option" data-doc="Certificate of Recognition">
+                                    <input type="radio" name="document_type" value="Certificate of Recognition">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-star"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certificate of Recognition</h3>
+                                            <p>Acknowledges completion or special achievement</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Honorable Mention Certificate' -->
+                                <label class="doc-option" data-doc="Honorable Mention Certificate">
+                                    <input type="radio" name="document_type" value="Honorable Mention Certificate">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-medal"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Honorable Mention / With Distinction</h3>
+                                            <p>Latin honors certificate, if applicable</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- ── CATEGORY 3: Enrollment and Attendance ── -->
+                        <div class="doc-category">
+                            <div class="doc-category-header">
+                                <i class="fas fa-user-check"></i>
+                                <h4>Enrollment and Attendance</h4>
+                            </div>
+                            <div class="doc-category-body">
+
+                                <!-- requests.document_type = 'Certificate of Enrollment' -->
+                                <label class="doc-option" data-doc="Certificate of Enrollment">
+                                    <input type="radio" name="document_type" value="Certificate of Enrollment">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-id-badge"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certificate of Enrollment / Registration</h3>
+                                            <p>Proof of enrollment in a specific term</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certificate of Good Standing' -->
+                                <label class="doc-option" data-doc="Certificate of Good Standing">
+                                    <input type="radio" name="document_type" value="Certificate of Good Standing">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-shield-alt"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certificate of Good Standing</h3>
+                                            <p>No disciplinary issues on record</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certificate of Attendance' -->
+                                <label class="doc-option" data-doc="Certificate of Attendance">
+                                    <input type="radio" name="document_type" value="Certificate of Attendance">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-calendar-check"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certificate of Attendance</h3>
+                                            <p>Proof of attendance in classes or seminars</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- ── CATEGORY 4: Special Purpose Documents ── -->
+                        <div class="doc-category">
+                            <div class="doc-category-header">
+                                <i class="fas fa-file-alt"></i>
+                                <h4>Special Purpose Documents</h4>
+                            </div>
+                            <div class="doc-category-body">
+
+                                <!-- requests.document_type = 'Letter of Recommendation' -->
+                                <label class="doc-option" data-doc="Letter of Recommendation">
+                                    <input type="radio" name="document_type" value="Letter of Recommendation">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-envelope"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Letter of Recommendation / Certification</h3>
+                                            <p>For employment or further studies</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certification of Units Earned' -->
+                                <label class="doc-option" data-doc="Certification of Units Earned">
+                                    <input type="radio" name="document_type" value="Certification of Units Earned">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-book-open"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certification of Units Earned</h3>
+                                            <p>Subjects taken and credits earned</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Clearance / No Objection Certificate' -->
+                                <label class="doc-option" data-doc="Clearance / No Objection Certificate">
+                                    <input type="radio" name="document_type" value="Clearance / No Objection Certificate">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-check-circle"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Clearance / No Objection Certificate</h3>
+                                            <p>For transfer, work, or government use</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- ── CATEGORY 5: Graduation-Related Forms ── -->
+                        <div class="doc-category">
+                            <div class="doc-category-header">
+                                <i class="fas fa-tasks"></i>
+                                <h4>Graduation-Related Forms</h4>
+                            </div>
+                            <div class="doc-category-body">
+
+                                <!-- requests.document_type = 'Application for Graduation' -->
+                                <label class="doc-option" data-doc="Application for Graduation">
+                                    <input type="radio" name="document_type" value="Application for Graduation">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-user-graduate"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Application for Graduation / Graduation Clearance</h3>
+                                            <p>Internal form for graduation processing</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Document Request Form' -->
+                                <label class="doc-option" data-doc="Document Request Form">
+                                    <input type="radio" name="document_type" value="Document Request Form">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-file-signature"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Document Request Form</h3>
+                                            <p>Official form to request document copies</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                                <!-- requests.document_type = 'Certification for Board Exam' -->
+                                <label class="doc-option" data-doc="Certification for Board Exam">
+                                    <input type="radio" name="document_type" value="Certification for Board Exam">
+                                    <div class="doc-card">
+                                        <div class="doc-card-icon"><i class="fas fa-clipboard-list"></i></div>
+                                        <div class="doc-card-info">
+                                            <h3>Certification for Board Exam / Licensure</h3>
+                                            <p>Required for professional licensure exams</p>
+                                        </div>
+                                    </div>
+                                    <div class="doc-check"><i class="fas fa-check"></i></div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div><!-- /.doc-categories -->
+
+                    <div class="alert warning" style="margin-top: 24px;">
+                        <div class="alert-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="alert-content">
+                            <h4>Important Note</h4>
+                            <p>Some grades may still be pending from instructors. You can submit your request now — we'll process it and add grades as they become available.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 2: REQUEST DETAILS
+                     Backend:
+                       - requests.purpose
+                       - requests.num_copies
+                     (No delivery_method / delivery_address — digital only)
+                     ========================================== -->
+                <div class="workflow-step" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <h2>Request Details</h2>
+                            <p>Tell us why you need this document</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <!-- requests.purpose -->
+                        <div class="form-group">
+                            <label for="purposeField">Purpose of Request <span class="required">*</span></label>
+                            <select id="purposeField" name="purpose" class="form-input">
+                                <option value="">Select purpose...</option>
+                                <option value="Employment">Employment / Job Application</option>
+                                <option value="Promotion">Promotion & Deployment</option>
+                                <option value="Further Studies">Further Studies / Graduate School</option>
+                                <option value="Board Exam">Board Exam Application</option>
+                                <option value="Personal Copy">Personal Copy</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+
+                        <!-- requests.num_copies -->
+                        <div class="form-group">
+                            <label for="copiesField">Number of Copies <span class="required">*</span></label>
+                            <input type="number" id="copiesField" name="num_copies" class="form-input"
+                                min="1" max="10" value="1">
+                            <span class="form-hint">Maximum 10 digital copies</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Remind student where their document will be sent -->
+                    <div class="digital-notice" style="margin-top: 24px;">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <div class="digital-notice-text">
+                            <h4>Delivered to Your Email</h4>
+                            <p>Your document will be sent as an official digital copy to your registered email address: <strong>juan@student.essu.edu.ph</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 3: LIST SUBJECTS (TOR / GRADES REPORT ONLY)
+                     Backend: request_subjects table
+                       - request_subjects.course_code
+                       - request_subjects.course_name
+                       - request_subjects.semester
+                       - request_subjects.status (default: 'Pending')
+                     Visible only when document_type is 'Transcript of Records' or 'Grades Report'
+                     ========================================== -->
+                <div class="workflow-step" id="subjectStep" data-step="3" style="display: none;">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <h2>Fill Evaluation Paper</h2>
+                            <p>List all subjects you've taken (staff will verify with instructor records)</p>
+                        </div>
+                    </div>
+
+                    <div class="alert info">
+                        <div class="alert-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="alert-content">
+                            <h4>How This Works</h4>
+                            <p>Fill in your subjects below. Our staff will check each one with the instructor's records. If a grade is pending, we'll send a "Request for Entry/Change of Grade" form to the instructor automatically.</p>
+                        </div>
+                    </div>
+
+                    <table class="subject-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Code</th>           <!-- request_subjects.course_code -->
+                                <th style="width: 35%;">Subject Name</th>   <!-- request_subjects.course_name -->
+                                <th style="width: 25%;">Semester</th>       <!-- request_subjects.semester -->
+                                <th style="width: 25%;">Status</th>         <!-- request_subjects.status = 'Pending' -->
+                            </tr>
+                        </thead>
+                        <tbody id="subjectTableBody">
+                            <tr>
+                                <td><input type="text" name="course_code[]" placeholder="e.g., MATH 101"></td>
+                                <td><input type="text" name="course_name[]" placeholder="e.g., Calculus I"></td>
+                                <td><input type="text" name="semester[]" placeholder="e.g., 1st Sem 2023-2024"></td>
+                                <td><span class="grade-badge pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="add-row-btn" id="addSubjectBtn">
+                        <i class="fas fa-plus"></i> Add Subject
+                    </button>
+
+                    <div class="alert warning" style="margin-top: 20px;">
+                        <div class="alert-icon"><i class="fas fa-clock"></i></div>
+                        <div class="alert-content">
+                            <h4>Processing Times for Pending Grades</h4>
+                            <p>If an instructor hasn't submitted grades yet, it may take additional time. Your request won't be delayed — we'll prepare your document with available grades and update continuously.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 4: CLEARANCE PROCESS
+                     Backend: clearance_forms.is_complete (FALSE on submit)
+                     ========================================== -->
+                <div class="workflow-step" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-info">
+                            <h2>Clearance Process</h2>
+                            <p>Required signatures and balance verification</p>
+                        </div>
+                    </div>
+
+                    <div class="clearance-steps">
+                        <div class="clearance-step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Sign Clearance Form</h4>
+                                <p>Get your clearance form from the Registrar. Review and sign it. This confirms your request details.</p>
+                            </div>
+                        </div>
+                        <div class="clearance-step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Go to Accounting Office</h4>
+                                <p>Bring your signed clearance to Accounting. They'll verify you have no outstanding balance. This is required for all documents.</p>
+                            </div>
+                        </div>
+                        <div class="clearance-step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Payment at Cashier</h4>
+                                <p>Once Accounting approves, go to the Cashier. Pay the fee for your document(s).</p>
+                            </div>
+                        </div>
+                        <div class="clearance-step">
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <h4>Return Signed Documents</h4>
+                                <p>Return your signed clearance + payment receipt to upload in the next step.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- clearance_forms.is_complete = FALSE on submit -->
+                    <div class="form-group full-width" style="margin-top: 28px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="clearanceCheck" name="clearance_confirmed" required>
+                            <span style="color: var(--text-dark); font-weight: 600;">
+                                I confirm that I will complete the clearance process before submitting this request
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 5: PAYMENT & UPLOAD DOCUMENTS
+                     Backend: request_files table
+                       - file_type = 'Payment Receipt'
+                       - file_type = 'Clearance Form'
+                       - file_type = 'Valid ID'
+                       Each stores: file_name, file_path, uploaded_by (student user_id)
+                     ========================================== -->
+                <div class="workflow-step" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-info">
+                            <h2>Upload Requirements Documents</h2>
+                            <p>Upload your required documents</p>
+                        </div>
+                    </div>
+
+                    <div class="alert info">
+                        <div class="alert-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="alert-content">
+                            <h4>What to Upload</h4>
+                            <p>After completing clearance and payment,  signed clearance form, and valid ID for verification.</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-section">
+
+                        <!-- request_files: file_type = 'Clearance Form' -->
+                        <div class="upload-item">
+                            <div class="upload-item-header">
+                                <div class="upload-icon"><i class="fas fa-file-contract"></i></div>
+                                <div class="upload-text">
+                                    <h4>Signed Clearance Form</h4>
+                                    <p>From Registrar</p>
+                                </div>
+                            </div>
+                            <div class="upload-actions">
+                                <button type="button" class="upload-btn" id="clearanceBtn">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload
+                                </button>
+                                <input type="file" id="clearanceFile" name="clearance_form"
+                                    accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                                <span class="file-name" id="clearanceName" style="display: none;"></span>
+                            </div>
+                        </div>
+
+                        <!-- request_files: file_type = 'Valid ID' -->
+                        <div class="upload-item">
+                            <div class="upload-item-header">
+                                <div class="upload-icon"><i class="fas fa-id-card"></i></div>
+                                <div class="upload-text">
+                                    <h4>Valid ID</h4>
+                                    <p>For identity verification</p>
+                                </div>
+                            </div>
+                            <div class="upload-actions">
+                                <button type="button" class="upload-btn" id="idBtn">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload
+                                </button>
+                                <input type="file" id="idFile" name="valid_id"
+                                    accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                                <span class="file-name" id="idName" style="display: none;"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     STEP 6: REVIEW & SUBMIT
+                     Display only — reads from previous steps.
+                     On confirm, inserts into:
+                       - requests (document_type, purpose, num_copies, status='Pending')
+                       - request_subjects (if TOR/Grades Report)
+                       - request_files (Payment Receipt, Clearance Form, Valid ID)
+                       - clearance_forms (is_complete = FALSE)
+                       - payment_info (amount_due — optional)
+                     ========================================== -->
+                <div class="workflow-step" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-info">
+                            <h2>Review & Submit</h2>
+                            <p>Double-check your request before final submission</p>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-items">
+
+                            <!-- requests.document_type -->
+                            <div class="review-item">
+                                <span class="review-label">Document Type</span>
+                                <span class="review-value" id="reviewDoc">—</span>
+                            </div>
+
+                            <!-- requests.purpose -->
+                            <div class="review-item">
+                                <span class="review-label">Purpose</span>
+                                <span class="review-value" id="reviewPurpose">—</span>
+                            </div>
+
+                            <!-- requests.num_copies -->
+                            <div class="review-item">
+                                <span class="review-label">Copies</span>
+                                <span class="review-value" id="reviewCopies">1</span>
+                            </div>
+
+                            <!-- Delivery is always digital — no DB column needed -->
+                            <div class="review-item">
+                                <span class="review-label">Delivery</span>
+                                <span class="review-value">Digital (Email)</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Uploaded files summary -->
+                    <div style="margin-top: 16px; padding: 20px; background: var(--bg-light); border-radius: 10px; border: 1px solid var(--border);">
+                        <p style="font-size:0.8rem; text-transform:uppercase; font-weight:700; color:#94a3b8; letter-spacing:0.5px; margin: 0 0 12px 0;">Uploaded Files</p>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:10px; font-size:0.9rem; color:#475569;">
+                                <i class="fas fa-file-contract" style="color:#1b5e20; width:16px;"></i>
+                                <span id="reviewClearanceFile">No file uploaded</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:0.9rem; color:#475569;">
+                                <i class="fas fa-id-card" style="color:#1b5e20; width:16px;"></i>
+                                <span id="reviewIdFile">No file uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submit-area">
+                        <button class="btn-submit" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /.form-wrapper -->
+        </main>
+    </div>
+
+    <!-- ==========================================
+         CONFIRMATION MODAL
+         On confirm → inserts into:
+           requests, request_subjects, request_files, clearance_forms, payment_info
+         ========================================== -->
+    <div id="modal" class="modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Confirm Your Request</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+
+                    <!-- requests.document_type -->
+                    <div class="modal-item">
+                        <span class="modal-label">Document Type</span>
+                        <span class="modal-value" id="modalDoc">—</span>
+                    </div>
+
+                    <!-- requests.purpose -->
+                    <div class="modal-item">
+                        <span class="modal-label">Purpose</span>
+                        <span class="modal-value" id="modalPurpose">—</span>
+                    </div>
+
+                    <!-- requests.num_copies -->
+                    <div class="modal-item">
+                        <span class="modal-label">Number of Copies</span>
+                        <span class="modal-value" id="modalCopies">1</span>
+                    </div>
+
+                    <!-- Digital delivery only -->
+                    <div class="modal-item">
+                        <span class="modal-label">Delivery Method</span>
+                        <span class="modal-value">Digital (Email)</span>
+                    </div>
+
+                </div>
+
+                <div class="alert success" style="margin-top: 20px;">
+                    <div class="alert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="alert-content">
+                        <h4>Ready to Submit</h4>
+                        <p>Your request is ready. A confirmation email with your request ID will be sent once submitted.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="modalCancel">Cancel</button>
+                <button class="btn-confirm" id="modalConfirm">
+                    <i class="fas fa-check"></i> Confirm & Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../student_js/student-request.js"></script>
+</body>
+
+</html>

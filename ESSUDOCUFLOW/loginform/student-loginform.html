@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESSU-GradDocuFlow | Secure Access</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../loginform/loginform.css">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="auth-card">
+
+        <!-- HEADER -->
+        <div class="card-header">
+            <div class="logo-wrapper">
+                <!-- IMPORTANT: use relative path -->
+                <img src="C:\Users\Christian\Documents\ESSUDOCUFLOW\Pictures\ESSU.jpg" alt="ESSU Logo" class="main-logo">
+            </div>
+
+            <h1 class="brand-name">ESSU-Grad<span>DocuFlow</span></h1>
+            <p class="tagline">Official Graduation Document Management</p>
+        </div>
+
+        <!-- TOGGLE -->
+        <div class="form-toggle">
+            <div class="slider"></div>
+            <button class="toggle-btn active" id="login-btn" onclick="toggleView('login')">
+                Login
+            </button>
+            <button class="toggle-btn" id="signup-btn" onclick="toggleView('signup')">
+                Sign Up
+            </button>
+        </div>
+
+        <!-- LOGIN SECTION -->
+        <div id="login-section">
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="username@gmail.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-green">
+                    Login
+                </button>
+
+            </form>
+        </div>
+
+        <!-- SIGN UP SECTION -->
+        <div id="signup-section" class="hidden">
+            <form class="auth-form" id="registration-form" onsubmit="handleSignup(event)">
+
+                <div class="signup-grid">
+
+                    <!-- Full Name -->
+                    <div class="input-group full-width">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Juan Dela Cruz" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group full-width">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            id="reg-email"
+                            placeholder="username@gmail.com"
+                            oninput="this.value = this.value.toLowerCase()"
+                            required
+                        >
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="••••••••" required>
+                    </div>
+
+                </div>
+
+                <!-- ERROR MESSAGE -->
+                <div id="error-message"
+                     style="color:#d32f2f;font-size:0.75rem;font-weight:600;margin-top:5px;display:none;">
+                    Passwords do not match!
+                </div>
+
+                <!-- TERMS -->
+                <div class="terms-check">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the <span>Privacy Policy</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-blue">
+                    Sign Up
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<script src="../loginform/script.js"></script>
+
+</body>
+</html>

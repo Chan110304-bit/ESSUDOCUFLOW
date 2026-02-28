@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | ESSU-GradDocuFlow Staff</title>
+    <link rel="stylesheet" href="../dashboard-template/base-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* ===== IMPROVED STAFF PROFILE STYLESHEET ===== */
+:root {
+    --primary: #1b5e20;
+    --primary-light: #e8f5e9;
+    --primary-dark: #0a3d0a;
+    --success: #2e7d32;
+    --success-light: #e8f5e9;
+    --danger: #d32f2f;
+    --danger-light: #ffebee;
+    --warning: #ed6c02;
+    --warning-light: #fff4e5;
+    --info: #0288d1;
+    --info-light: #e1f5fe;
+    --text-dark: #1e293b;
+    --text-light: #475569;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --border-soft: #edf2f7;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-lg: 16px;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ===== HEADER ===== */
+.content-header {
+    margin-bottom: 28px;
+}
+
+.content-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.content-header .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-weight: 400;
+}
+
+/* ===== PROFILE HEADER CARD (IMPROVED) ===== */
+.profile-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+
+.profile-avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #c8e6c9 100%);
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--primary);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
+    position: relative;
+}
+
+.profile-picture::after {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0;
+    }
+}
+
+.btn-change-photo {
+    padding: 8px 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 8px rgba(27, 94, 32, 0.2);
+}
+
+.btn-change-photo:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+}
+
+.profile-header-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.3px;
+}
+
+.profile-position {
+    font-size: 1rem;
+    color: var(--primary);
+    margin: 0 0 14px 0;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.meta-item {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.meta-item i {
+    font-size: 0.9rem;
+}
+
+.meta-item i.active {
+    color: var(--success);
+}
+
+/* ===== PROFILE SECTION ===== */
+.profile-section {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.profile-section:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-soft);
+}
+
+.section-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    letter-spacing: -0.2px;
+}
+
+.section-header h3 i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    border-radius: 8px;
+}
+
+.btn-edit {
+    padding: 8px 14px;
+    background: white;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 3px rgba(27, 94, 32, 0.1);
+}
+
+.btn-edit:hover:not(:disabled) {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
+}
+
+.btn-edit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+/* Information Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.info-grid.two-column {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.info-grid.three-column {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+}
+
+.info-value {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin: 0;
+    font-weight: 600;
+}
+
+.badge-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    width: fit-content;
+}
+
+.badge-status.active {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+/* ===== PERMISSIONS & ACCESS ===== */
+.permissions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.permission-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.permission-item:hover {
+    background: #f0f9ff;
+    border-color: var(--primary);
+}
+
+.permission-info h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 3px 0;
+}
+
+.permission-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.permission-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.permission-status.granted {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+/* ===== ACTIVITY SUMMARY ===== */
+.activity-summary {
+    margin-bottom: 20px;
+}
+
+.activity-summary h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 18px 0;
+    letter-spacing: -0.2px;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.activity-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.activity-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.activity-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.activity-icon.processed {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+}
+
+.activity-icon.average-time {
+    background: linear-gradient(135deg, #0288d1 0%, #01579b 100%);
+}
+
+.activity-icon.completion-rate {
+    background: linear-gradient(135deg, #1b5e20 0%, #0a3d0a 100%);
+}
+
+.activity-icon.login {
+    background: linear-gradient(135deg, #ed6c02 0%, #e65100 100%);
+}
+
+.activity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.activity-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.activity-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.3px;
+}
+
+/* ===== SETTINGS GRID ===== */
+.settings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.setting-item:hover {
+    border-color: var(--primary);
+    background: #f0f9ff;
+}
+
+.setting-info h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 3px 0;
+}
+
+.setting-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.btn-action {
+    padding: 8px 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(27, 94, 32, 0.15);
+}
+
+.btn-action:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.25);
+}
+
+.btn-action.danger {
+    background: var(--danger);
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+}
+
+.btn-action.danger:hover {
+    background: #b71c1c;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.25);
+}
+
+/* ===== ACTIVITY LOG ===== */
+.activity-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.log-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: flex-start;
+}
+
+.log-item:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    min-width: 110px;
+}
+
+.log-action {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* ===== MODALS (REDESIGNED) ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    max-width: 550px;
+    width: 100%;
+    overflow: hidden;
+    animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-sm {
+    max-width: 420px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.modal-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 28px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+    background: #fafbfc;
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.modal-footer {
+    padding: 18px 28px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.btn-cancel {
+    padding: 10px 22px;
+    background: var(--bg-light);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.btn-cancel:hover {
+    border-color: var(--text-light);
+    background: white;
+    color: var(--text-dark);
+}
+
+.btn-save,
+.btn-confirm {
+    padding: 10px 22px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px rgba(27, 94, 32, 0.2);
+}
+
+.btn-save:hover,
+.btn-confirm:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-header-info {
+        width: 100%;
+    }
+
+    .profile-meta {
+        justify-content: center;
+    }
+
+    .activity-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info-grid.two-column,
+    .info-grid.three-column {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .permission-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .profile-name {
+        font-size: 1.4rem;
+    }
+
+    .profile-section {
+        padding: 20px;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        margin: 20px;
+    }
+
+    .content-header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-picture {
+        width: 90px;
+        height: 90px;
+        font-size: 2.2rem;
+    }
+
+    .profile-name {
+        font-size: 1.2rem;
+    }
+
+    .profile-header,
+    .profile-section {
+        padding: 16px;
+    }
+
+    .activity-card {
+        padding: 14px;
+    }
+
+    .setting-item,
+    .permission-item {
+        padding: 14px;
+    }
+
+    .btn-action {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    .modal-content {
+        margin: 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-body,
+    .modal-footer,
+    .modal-header {
+        padding: 18px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- ===== SIDEBAR (STAFF VERSION) ===== -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h2>ESSU-GDF</h2>
+                        <p>Staff Portal</p>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar staff">
+                        <span>AR</span>
+                    </div>
+                    <div class="user-info">
+                        <h4>Admin Registrar</h4>
+                        <p>Staff Account</p>
+                    </div>
+                </div>
+            </div>
+                  <nav class="nav-menu">
+                <a href="staff-dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="staff-pending-requests.html" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Pending Requests</span>
+                </a>
+                <a href="staff-all-requests.html" class="nav-item">
+                    <i class="fas fa-list-alt"></i>
+                    <span>All Requests</span>
+                </a>
+                <a href="staff-student-registry.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Student Registry</span>
+                </a>
+                <a href="staff-document-process.html" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Document Processing</span>
+                </a>
+                <a href="staff-report.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="staff-document-templates.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Templates</span>
+                </a>
+                <a href="staff-notification.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="staff-profile.html" class="nav-item active">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+
+                <div class="sidebar-footer">
+                    <a href="../loginform/admin-loginform.html" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <h1>My Profile</h1>
+                <p class="subtitle">Manage your profile information and account settings</p>
+            </header>
+
+            <!-- Profile Header Card -->
+            <section class="profile-header">
+                <div class="profile-avatar-section">
+                    <div class="profile-picture">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <button class="btn-change-photo" id="changePhotoBtn">
+                        <i class="fas fa-camera"></i> Change Photo
+                    </button>
+                </div>
+
+                <div class="profile-header-info">
+                    <h2 class="profile-name">Maria Santos</h2>
+                    <p class="profile-position">University Registrar</p>
+                    <div class="profile-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-id-card"></i> Staff ID: STF-2020-001
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-check-circle active"></i> Active
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personal Information Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                    <button class="btn-edit" id="editPersonalBtn">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Full Name</label>
+                        <p class="info-value">Maria Santos</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Date of Birth</label>
+                        <p class="info-value">March 22, 1982</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Gender</label>
+                        <p class="info-value">Female</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Nationality</label>
+                        <p class="info-value">Filipino</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional Information Section (NOW EDITABLE) -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-briefcase"></i> Professional Information</h3>
+                    <button class="btn-edit" id="editProfessionalBtn">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Staff ID</label>
+                        <p class="info-value">STF-2020-001</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Position</label>
+                        <p class="info-value">University Registrar</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Department</label>
+                        <p class="info-value">Registrar's Office</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Employment Status</label>
+                        <p class="info-value">
+                            <span class="badge-status active">Full-time</span>
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Date Hired</label>
+                        <p class="info-value">January 10, 2020</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Account Status</label>
+                        <p class="info-value">
+                            <span class="badge-status active">Active</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-phone"></i> Contact Information</h3>
+                    <button class="btn-edit" id="editContactBtn">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                </div>
+
+                <div class="info-grid two-column">
+                    <div class="info-item">
+                        <label class="info-label">Email Address</label>
+                        <p class="info-value">maria.santos@essu.edu.ph</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Mobile Number</label>
+                        <p class="info-value">+63 917-555-0123</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Office Phone</label>
+                        <p class="info-value">+63 55-226-3750 ext. 105</p>
+                    </div>
+                    <div class="info-item">
+                        <label class="info-label">Office Location</label>
+                        <p class="info-value">Admin Building, Room 205</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Performance Summary -->
+            <section class="activity-summary">
+                <h3>Work Performance Summary</h3>
+                <div class="activity-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon processed">
+                            <i class="fas fa-file-check"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Requests Processed</span>
+                            <span class="activity-value">346</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon average-time">
+                            <i class="fas fa-hourglass-end"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Avg Processing Time</span>
+                            <span class="activity-value">3.2 days</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon completion-rate">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Completion Rate</span>
+                            <span class="activity-value">98%</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-icon login">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div class="activity-info">
+                            <span class="activity-label">Last Login</span>
+                            <span class="activity-value">Today, 8:30 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permissions & Access Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-key"></i> Permissions & Access</h3>
+                </div>
+
+                <div class="permissions-list">
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>View All Requests</h4>
+                            <p>Can view all student document requests in the system</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>Approve Requests</h4>
+                            <p>Can approve or reject student document requests</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>Generate Reports</h4>
+                            <p>Can generate and export system reports</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>Manage Templates</h4>
+                            <p>Can create and edit document templates</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>User Management</h4>
+                            <p>Can manage staff accounts and permissions</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <h4>System Settings</h4>
+                            <p>Can modify system configuration and settings</p>
+                        </div>
+                        <div class="permission-status granted">
+                            <i class="fas fa-check-circle"></i> Granted
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Settings Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-cog"></i> Account Settings</h3>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Change Password</h4>
+                            <p>Update your account password regularly for security</p>
+                        </div>
+                        <button class="btn-action" id="changePasswordBtn">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Update Email Address</h4>
+                            <p>Change your primary email address associated with your account</p>
+                        </div>
+                        <button class="btn-action" id="updateEmailBtn">
+                            <i class="fas fa-envelope"></i> Update Email
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Add an extra layer of security to your account</p>
+                        </div>
+                        <button class="btn-action" id="enableTfaBtn">
+                            <i class="fas fa-shield-alt"></i> Enable 2FA
+                        </button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h4>Logout from All Devices</h4>
+                            <p>Terminate all active sessions on your account</p>
+                        </div>
+                        <button class="btn-action danger" id="logoutAllBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout All Devices
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Log Section -->
+            <section class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-history"></i> Recent Activity Log</h3>
+                </div>
+
+                <div class="activity-log">
+                    <div class="log-item">
+                        <div class="log-time">Today, 8:30 AM</div>
+                        <div class="log-action">Logged in successfully</div>
+                    </div>
+                    <div class="log-item">
+                        <div class="log-time">Yesterday, 5:15 PM</div>
+                        <div class="log-action">Approved 5 document requests</div>
+                    </div>
+                    <div class="log-item">
+                        <div class="log-time">Feb 13, 2:45 PM</div>
+                        <div class="log-action">Generated monthly report</div>
+                    </div>
+                    <div class="log-item">
+                        <div class="log-time">Feb 12, 10:20 AM</div>
+                        <div class="log-action">Updated password</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Personal Info Modal -->
+    <div id="editPersonalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Personal Information</h3>
+                <button class="modal-close" id="closePersonalModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" value="Maria Santos" placeholder="Enter your full name">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" class="form-input" value="1982-03-22">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select class="form-input">
+                            <option selected>Female</option>
+                            <option>Male</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nationality</label>
+                    <input type="text" class="form-input" value="Filipino" placeholder="Enter your nationality">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelPersonalModal">Cancel</button>
+                <button class="btn-save" id="savePersonalModal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Professional Info Modal (NEW) -->
+    <div id="editProfessionalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Professional Information</h3>
+                <button class="modal-close" id="closeProfessionalModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Position</label>
+                    <input type="text" class="form-input" value="University Registrar" placeholder="Enter your position">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" class="form-input" value="Registrar's Office" placeholder="Enter your department">
+                    </div>
+                    <div class="form-group">
+                        <label>Employment Status</label>
+                        <select class="form-input">
+                            <option selected>Full-time</option>
+                            <option>Part-time</option>
+                            <option>Contract</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Date Hired</label>
+                    <input type="date" class="form-input" value="2020-01-10">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelProfessionalModal">Cancel</button>
+                <button class="btn-save" id="saveProfessionalModal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Contact Info Modal -->
+    <div id="editContactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Contact Information</h3>
+                <button class="modal-close" id="closeContactModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" value="maria.santos@essu.edu.ph" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" class="form-input" value="+63 917-555-0123" placeholder="Enter your mobile number">
+                </div>
+                <div class="form-group">
+                    <label>Office Phone</label>
+                    <input type="tel" class="form-input" value="+63 55-226-3750 ext. 105" placeholder="Enter your office phone">
+                </div>
+                <div class="form-group">
+                    <label>Office Location</label>
+                    <input type="text" class="form-input" value="Admin Building, Room 205" placeholder="Enter your office location">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelContactModal">Cancel</button>
+                <button class="btn-save" id="saveContactModal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close" id="closePasswordModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" class="form-input" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" class="form-input" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-input" placeholder="Confirm new password">
+                </div>
+                <p class="form-hint">Password must be at least 8 characters long and contain uppercase, lowercase, and numbers.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelPasswordModal">Cancel</button>
+                <button class="btn-save" id="savePasswordModal">Change Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelConfirmModal">Cancel</button>
+                <button class="btn-confirm" id="confirmActionModal">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// ===== STAFF PROFILE PAGE - IMPROVED JAVASCRIPT =====
+(function() {
+    'use strict';
+
+    // Edit Buttons
+    const editPersonalBtn = document.getElementById('editPersonalBtn');
+    const editProfessionalBtn = document.getElementById('editProfessionalBtn');
+    const editContactBtn = document.getElementById('editContactBtn');
+    const changePhotoBtn = document.getElementById('changePhotoBtn');
+
+    // Action Buttons
+    const changePasswordBtn = document.getElementById('changePasswordBtn');
+    const updateEmailBtn = document.getElementById('updateEmailBtn');
+    const enableTfaBtn = document.getElementById('enableTfaBtn');
+    const logoutAllBtn = document.getElementById('logoutAllBtn');
+
+    // Modals
+    const editPersonalModal = document.getElementById('editPersonalModal');
+    const editProfessionalModal = document.getElementById('editProfessionalModal');
+    const editContactModal = document.getElementById('editContactModal');
+    const changePasswordModal = document.getElementById('changePasswordModal');
+    const confirmModal = document.getElementById('confirmModal');
+
+    // Modal Close Buttons
+    const closePersonalModal = document.getElementById('closePersonalModal');
+    const closeProfessionalModal = document.getElementById('closeProfessionalModal');
+    const closeContactModal = document.getElementById('closeContactModal');
+    const closePasswordModal = document.getElementById('closePasswordModal');
+    const closeConfirmModal = document.getElementById('closeConfirmModal');
+
+    // Modal Action Buttons
+    const cancelPersonalModal = document.getElementById('cancelPersonalModal');
+    const savePersonalModal = document.getElementById('savePersonalModal');
+    const cancelProfessionalModal = document.getElementById('cancelProfessionalModal');
+    const saveProfessionalModal = document.getElementById('saveProfessionalModal');
+    const cancelContactModal = document.getElementById('cancelContactModal');
+    const saveContactModal = document.getElementById('saveContactModal');
+    const cancelPasswordModal = document.getElementById('cancelPasswordModal');
+    const savePasswordModal = document.getElementById('savePasswordModal');
+    const cancelConfirmModal = document.getElementById('cancelConfirmModal');
+    const confirmActionModal = document.getElementById('confirmActionModal');
+
+    // Confirm Modal Elements
+    const confirmTitle = document.getElementById('confirmTitle');
+    const confirmMessage = document.getElementById('confirmMessage');
+
+    let currentAction = null;
+
+    // Initialize
+    function init() {
+        attachEventListeners();
+    }
+
+    function attachEventListeners() {
+        // Edit Buttons
+        editPersonalBtn.addEventListener('click', openEditPersonal);
+        editProfessionalBtn.addEventListener('click', openEditProfessional);
+        editContactBtn.addEventListener('click', openEditContact);
+        changePhotoBtn.addEventListener('click', handleChangePhoto);
+
+        // Action Buttons
+        changePasswordBtn.addEventListener('click', openChangePassword);
+        updateEmailBtn.addEventListener('click', handleUpdateEmail);
+        enableTfaBtn.addEventListener('click', handleEnableTfa);
+        logoutAllBtn.addEventListener('click', handleLogoutAll);
+
+        // Personal Modal
+        closePersonalModal.addEventListener('click', () => closeModal(editPersonalModal));
+        cancelPersonalModal.addEventListener('click', () => closeModal(editPersonalModal));
+        savePersonalModal.addEventListener('click', handleSavePersonal);
+
+        // Professional Modal
+        closeProfessionalModal.addEventListener('click', () => closeModal(editProfessionalModal));
+        cancelProfessionalModal.addEventListener('click', () => closeModal(editProfessionalModal));
+        saveProfessionalModal.addEventListener('click', handleSaveProfessional);
+
+        // Contact Modal
+        closeContactModal.addEventListener('click', () => closeModal(editContactModal));
+        cancelContactModal.addEventListener('click', () => closeModal(editContactModal));
+        saveContactModal.addEventListener('click', handleSaveContact);
+
+        // Password Modal
+        closePasswordModal.addEventListener('click', () => closeModal(changePasswordModal));
+        cancelPasswordModal.addEventListener('click', () => closeModal(changePasswordModal));
+        savePasswordModal.addEventListener('click', handleSavePassword);
+
+        // Confirm Modal
+        closeConfirmModal.addEventListener('click', () => closeModal(confirmModal));
+        cancelConfirmModal.addEventListener('click', () => closeModal(confirmModal));
+        confirmActionModal.addEventListener('click', executeConfirmedAction);
+
+        // Close modal on background click
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target);
+            }
+        });
+    }
+
+    // Modal Functions
+    function openModal(modal) {
+        modal.classList.add('active');
+    }
+
+    function closeModal(modal) {
+        modal.classList.remove('active');
+    }
+
+    function openConfirm(title, message, action) {
+        confirmTitle.textContent = title;
+        confirmMessage.textContent = message;
+        currentAction = action;
+        openModal(confirmModal);
+    }
+
+    // Edit Personal Information
+    function openEditPersonal() {
+        openModal(editPersonalModal);
+    }
+
+    function handleSavePersonal() {
+        alert('✅ Personal information updated successfully!');
+        closeModal(editPersonalModal);
+    }
+
+    // Edit Professional Information
+    function openEditProfessional() {
+        openModal(editProfessionalModal);
+    }
+
+    function handleSaveProfessional() {
+        alert('✅ Professional information updated successfully!');
+        closeModal(editProfessionalModal);
+    }
+
+    // Edit Contact Information
+    function openEditContact() {
+        openModal(editContactModal);
+    }
+
+    function handleSaveContact() {
+        alert('✅ Contact information updated successfully!');
+        closeModal(editContactModal);
+    }
+
+    // Change Photo
+    function handleChangePhoto() {
+        openConfirm(
+            'Change Profile Photo',
+            'Would you like to upload a new profile photo?',
+            'changePhoto'
+        );
+    }
+
+    // Change Password
+    function openChangePassword() {
+        openModal(changePasswordModal);
+    }
+
+    function handleSavePassword() {
+        const passwordInputs = document.querySelectorAll('#changePasswordModal .form-input');
+        const currentPassword = passwordInputs[0].value;
+        const newPassword = passwordInputs[1].value;
+        const confirmPassword = passwordInputs[2].value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            alert('❌ Please fill in all password fields');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert('❌ New passwords do not match');
+            return;
+        }
+
+        if (newPassword.length < 8) {
+            alert('❌ Password must be at least 8 characters long');
+            return;
+        }
+
+        alert('✅ Password changed successfully!');
+        closeModal(changePasswordModal);
+        // Reset password fields
+        passwordInputs.forEach(input => input.value = '');
+    }
+
+    // Update Email
+    function handleUpdateEmail() {
+        openConfirm(
+            'Update Email Address',
+            'A verification link will be sent to your new email address. Do you want to proceed?',
+            'updateEmail'
+        );
+    }
+
+    // Enable 2FA
+    function handleEnableTfa() {
+        openConfirm(
+            'Enable Two-Factor Authentication',
+            'Two-factor authentication adds an extra layer of security to your account. Continue?',
+            'enable2fa'
+        );
+    }
+
+    // Logout All Devices
+    function handleLogoutAll() {
+        openConfirm(
+            'Logout from All Devices',
+            'This will terminate all active sessions. You will need to log in again. Continue?',
+            'logoutAll'
+        );
+    }
+
+    // Execute Confirmed Action
+    function executeConfirmedAction() {
+        const messages = {
+            'changePhoto': '✅ Profile photo updated successfully!',
+            'updateEmail': '✅ Verification email sent! Check your new email address.',
+            'enable2fa': '✅ Two-factor authentication enabled! Scan the QR code with your authenticator app.',
+            'logoutAll': '✅ You have been logged out from all devices.'
+        };
+
+        alert(messages[currentAction] || '✅ Action completed');
+        closeModal(confirmModal);
+        currentAction = null;
+    }
+
+    // Start initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+    </script>
+</body>
+
+</html>
